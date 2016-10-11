@@ -1,0 +1,127 @@
+<!--
+Title:       Key Board Play
+Author:      Tony Lanera
+Date:        Oct 11th, 2016
+Description: This site is a variation of the patatap.com site.
+             Both sites utilize paperjs for graphics and animation and howler.js for sound play.
+             The Key Board Play site was an exercise from the Web Developer Bootcamp class.
+             By pressing keys "a" through "z" a circle will be displayed in a random location and a corresponding sound will play.
+             The circle will slowly fade out.
+
+             The purpose of the exercise was to become familiar with utilizing a graphical and sound library.
+             The initial exercise had hard coded an object for each letter, which contained a sound and color.
+             Based on lessons on OOP, I created a constructor function and programmatically created 26 objects .
+
+             For simplicity sake the css style and JS script is contained within the html file.
+             This can be separated out into their respective files.
+             However since the bulk of the effort is JS, it made sense to keep it in one file.
+-->
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Keyboard Play</title>
+      <link rel="stylesheet" href="css/keyboardplay.css" media="screen" title="no title" charset="utf-8">
+      <style>
+         html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+         }
+         canvas {
+            width: 100%;
+            height: 100%;
+            background: black;
+         }
+      </style>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/paperjs/0.10.2/paper-full.min.js"></script>
+      <script type="text/javascript" >
+          // Name: getRandomRGBColor()
+          // Desc: Get a random RGB Color
+          // Parameter: None
+          // Return: random color in rgb format
+          function getRandomRGBColor() {
+             var colorMin = 0;
+             var colorMax = 255;
+             var vReturn = "rgb("+ getRandomIntInclusive(colorMin,colorMax) + ", "
+                                 + getRandomIntInclusive(colorMin,colorMax) + ", "
+                                 + getRandomIntInclusive(colorMin,colorMax) +")";
+          return vReturn;}
+
+          // Name: getRandomIntInclusive()
+          // Desc: Get a random number from min and max
+          // Parameter: min: datatype: number
+          //            max: datatype: number
+          // Return: a random number between min and max
+          function getRandomIntInclusive(min,max) {
+             min = Math.ceil(min);
+             max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min + 1)) + min;}
+      </script>
+      <script type="text/paperscript" canvas="play">
+         // Store all sound files in an array
+         var soundList = [
+	      	"bubbles.mp3"   , "clay.mp3"    ,  "confetti.mp3", "corona.mp3"  ,     "dotted-spiral.mp3",
+	      	"flash-1.mp3"   , "flash-2.mp3" ,  "flash-3.mp3" , "glimmer.mp3" ,     "moon.mp3"         ,
+	      	"pinwheel.mp3"  , "piston-1.mp3",  "piston-2.mp3", "piston-3.mp3",     "prism-1.mp3"      ,
+	      	"prism-2.mp3"   , "prism-3.mp3" ,  "splits.mp3"  , "squiggle.mp3",     "strike.mp3"       ,
+	      	"suspension.mp3", "timer.mp3"   ,  "ufo.mp3"     , "veil.mp3"    ,     "wipe.mp3"         ,
+	      	"zig-zag.mp3"]
+
+         // Add sound directory to the array. Each sound file must be in an array. Howl requires an array
+         for (var i = 0; i < soundList.length; i++) {
+            soundList[i] = ["sounds/" + soundList[i]]
+         }
+
+         // Create Key Press constructor Object.
+         function KeyPressObject(sound, color) {
+            this.sound = sound;
+            this.color = color;
+            this.newCircle = {};
+            justPressed = false;
+         }
+
+         // Create 26 (a to z) key press object and store them in keyData object
+         // associate a unique sound Howl object and color to each 26 objects
+         // Using variables for readablity and understanablity. Variables are not needed.
+         var keyData = {};
+         var keyPressLtr = "";
+         var soundPerLtr = {}
+         for (var i = 65; i <= 90; i++) {
+            keyPressLtr = String.fromCharCode(i).toLowerCase();
+            soundPerLtr = new Howl({urls: soundList[(i - 65)]})
+            keyData[keyPressLtr] = new KeyPressObject(soundPerLtr, getRandomRGBColor());
+         }
+
+         // An array is used to communicate between onKeyDown and onFrame funcitons
+         var circleList = [];
+
+         // This function will create circle object, display the initial circle and play the sound
+         function onKeyDown(event) {
+            if (keyData[event.key]) {
+               var point = (new Point(view.size.width,view.size.height)) * (Point.random());
+               var newCircle = new Path.Circle(point, 500);
+               newCircle.fillColor = keyData[event.key].color;
+               circleList.push(newCircle);
+               keyData[event.key].sound.play();
+            }
+         }
+
+         // This function will animate the cicle previously displayed and remove the cirlce from the array
+         function onFrame(event) {
+            for (var i = 0; i < circleList.length; i++) {
+               circleList[i].fillColor.hue += 1;
+               circleList[i].scale(.9);
+               if(circleList[i].area < 1){
+                  circleList[i].remove();
+                  circleList.splice(i, 1);
+               }
+            }
+         }
+      </script>
+   </head>
+   <body>
+      <canvas id="play" resize></canvas>
+   </body>
+</html>
