@@ -1,11 +1,11 @@
 ## keyBoardPlay
-A Portfolio Piece
+A Portfolio Piece: This site is a variation of the patatap.com site. Both sites utilize paperjs for graphics and animation and howler.js for sound play. The Key Board Play site was an exercise from the Web Developer Bootcamp class.
 
 ## Install Procedures
 1. Download the index.html and sounds directory.
 2. Open index.html in a browser.
 
-**Note:** You must have an internet connection to run the site. 
+**Note:** You must have an internet connection to run the site. This site uses paperjs and howler.js cdn libraries.
 
 ## Play Instructions
 By pressing keys "a" through "z" a circle will be displayed in a random location and a corresponding sound will play. The circle will slowly fade out.
@@ -17,7 +17,7 @@ By pressing keys "a" through "z" a circle will be displayed in a random location
 
 **Description:**
 
-This site is a variation of the patatap.com site. Both sites utilize paperjs for graphics and animation and howler.js for sound play. The Key Board Play site was an exercise from the Web Developer Bootcamp class.
+This site is a variation of the patatap.com site. The keyBoardPlay site utilize paperjs for graphics and animation and howler.js for sound play. The Key Board Play site was an exercise from the Web Developer Bootcamp class.
 
 **Purpose:**
 
