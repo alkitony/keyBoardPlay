@@ -2,26 +2,26 @@
 Title:       Key Board Play
 Author:      Tony Lanera
 Date:        Oct 11th, 2016
-Description: This site is a variation of the patatap.com site.
-             Both sites utilize paperjs for graphics and animation and howler.js for sound play.
+Description: This site is a variation of the patatap.com site. The key board play site uses
+             paperjs for graphics and animation and howler.js for sound play.
              The Key Board Play site was an exercise from the Web Developer Bootcamp class.
              By pressing keys "a" through "z" a circle will be displayed in a random location and a corresponding sound will play.
              The circle will slowly fade out.
 
-             The purpose of the exercise was to become familiar with utilizing a graphical and sound library.
-             The initial exercise had hard coded an object for each letter, which contained a sound and color.
-             Based on lessons on OOP, I created a constructor function and programmatically created 26 objects .
-
+Purpose:     The purpose of the exercise was to become familiar with utilizing a graphical and sound library.
              For simplicity sake the css style and JS script is contained within the html file.
              This can be separated out into their respective files.
              However since the bulk of the effort is JS, it made sense to keep it in one file.
+
+Highlight:   The initial exercise had hard coded an object for each letter, which contained a sound and color for each letter between a to z.
+             Based on lessons learned with OOP, I created a constructor function and programmatically created 26 objects.
 -->
+
 <!DOCTYPE html>
 <html>
    <head>
       <meta charset="utf-8">
       <title>Keyboard Play</title>
-      <link rel="stylesheet" href="css/keyboardplay.css" media="screen" title="no title" charset="utf-8">
       <style>
          html, body {
             height: 100%;
@@ -37,10 +37,10 @@ Description: This site is a variation of the patatap.com site.
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.js"></script>
       <script type="text/javascript" src="https://cdn.jsdelivr.net/paperjs/0.10.2/paper-full.min.js"></script>
       <script type="text/javascript" >
-          // Name: getRandomRGBColor()
-          // Desc: Get a random RGB Color
-          // Parameter: None
-          // Return: random color in rgb format
+         /**
+          * getRandomColorNmb: Generates a random rgb color
+          * @return {text} returns a rgb color in the following format "rgb(###, ###, ###)"
+          */
           function getRandomRGBColor() {
              var colorMin = 0;
              var colorMax = 255;
@@ -49,17 +49,19 @@ Description: This site is a variation of the patatap.com site.
                                  + getRandomIntInclusive(colorMin,colorMax) +")";
           return vReturn;}
 
-          // Name: getRandomIntInclusive()
-          // Desc: Get a random number from min and max
-          // Parameter: min: datatype: number
-          //            max: datatype: number
-          // Return: a random number between min and max
+          /**
+           * getRandomIntInclusive: Get a Random number between and including min and max
+           * @param  {number} min The bottom range of numbers
+           * @param  {number} max The top range of numbers
+           * @return {number} returns a random number found between the bottom and top range.
+          */
           function getRandomIntInclusive(min,max) {
              min = Math.ceil(min);
              max = Math.floor(max);
           return Math.floor(Math.random() * (max - min + 1)) + min;}
       </script>
       <script type="text/paperscript" canvas="play">
+
          // Store all sound files in an array
          var soundList = [
 	      	"bubbles.mp3"   , "clay.mp3"    ,  "confetti.mp3", "corona.mp3"  ,     "dotted-spiral.mp3",
@@ -75,6 +77,11 @@ Description: This site is a variation of the patatap.com site.
          }
 
          // Create Key Press constructor Object.
+         /**
+          * KeyPressObject: This is a constructor function to create instances of Key Press Object]
+          * @param {object} sound: A Howl object for a specific sound
+          * @param {text} color: An RGB color code.
+         */
          function KeyPressObject(sound, color) {
             this.sound = sound;
             this.color = color;
@@ -97,7 +104,10 @@ Description: This site is a variation of the patatap.com site.
          // An array is used to communicate between onKeyDown and onFrame funcitons
          var circleList = [];
 
-         // This function will create circle object, display the initial circle and play the sound
+         /**
+          * onKeyDown This is a paper.js function. This function will create circle object, display the initial circle and play the sound
+          * @param  {object} event: The keyboard event that happened on the canvas eleement.
+         */
          function onKeyDown(event) {
             if (keyData[event.key]) {
                var point = (new Point(view.size.width,view.size.height)) * (Point.random());
@@ -108,7 +118,10 @@ Description: This site is a variation of the patatap.com site.
             }
          }
 
-         // This function will animate the cicle previously displayed and remove the cirlce from the array
+         /**
+          * onFrame This is a paper.js function. This function will animate the cicle previously displayed and remove the cirlce from the array.
+          * @param  {object} event: The keyboard event that happened on the canvas eleement.
+          */
          function onFrame(event) {
             for (var i = 0; i < circleList.length; i++) {
                circleList[i].fillColor.hue += 1;
