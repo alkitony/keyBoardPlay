@@ -3,12 +3,15 @@ A Portfolio Piece: This site is a variation of the patatap.com site. The key boa
 
 ## Install Procedures
 
-1. Download/Clone the index.html and sounds directory.
+1. Download/Clone the keyBoardPlay.html and sounds directory.
 2. Open index.html in a browser.
 
 **Note:** You must have an internet connection to run the site. This site uses paperjs and howler.js cdn libraries.
 
 ## Background
+
+This site and code were developed as part of the [Udemy: The Web Developer Bootcamp](https://www.udemy.com/the-web-developer-bootcamp/) course.
+
 **Author:** Tony Lanera
 
 **Date:** Oct 11th, 2016
