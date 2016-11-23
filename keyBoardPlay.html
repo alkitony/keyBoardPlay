@@ -33,6 +33,24 @@ Highlight:   The initial exercise had hard coded an object for each letter, whic
             height: 100%;
             background: black;
          }
+         footer {
+            overflow: hidden;
+            position: absolute;
+            bottom: 0;
+            height: 30px;
+            width: 100%;
+            background-color: rgb(256,256,256);
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            text-align: center;
+            margin: auto auto;
+         }
+         footer p {
+            margin: 5px 0;
+         }
+         footer p a {
+            color: blue;
+         }
       </style>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.js"></script>
       <script type="text/javascript" src="https://cdn.jsdelivr.net/paperjs/0.10.2/paper-full.min.js"></script>
@@ -138,4 +156,7 @@ Highlight:   The initial exercise had hard coded an object for each letter, whic
       <canvas id="play" resize>
       </canvas>
    </body>
+   <footer class="footer">
+        <p>Press Any Key Between A to Z - KeyBoardPlay - Created by <a href="/">Tony Lanera</a></p>  
+   </footer>
 </html>
